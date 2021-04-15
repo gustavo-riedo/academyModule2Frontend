@@ -1,0 +1,46 @@
+/* Font import */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Root default style and variables */
+:root {
+   /* Font */
+   font: normal 400 calc(1px + 2vmin) 'Roboto', sans-serif;
+   color: var(--secondaryColor);
+
+   /* Variables */
+   --navbarSize: 7vw;
+   --primaryColor: #7e3ff2;
+   --secondaryColor: #dcdcdc;
+   --backgroundColor: #121212;
+   --navbarColor: #363636;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}
+input[type='number'] {
+   -moz-appearance: textfield;
+}
+
+* {
+   /* Box characteristics */
+   margin: 0;
+   padding: 0;
+
+   /* Others */
+   box-sizing: border-box;
+}
+
+body {
+   /* Background */
+   background-color: var(--backgroundColor);
+
+   /* Dimensions */
+   min-height: 100vh;
+
+   /* Positioning */
+   display: flex;
+   flex-direction: row;
+}

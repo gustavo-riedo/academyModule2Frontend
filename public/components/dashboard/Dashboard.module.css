@@ -1,0 +1,174 @@
+/* General structure */
+.main {
+   /* Dimensions */
+   width: 100vw;
+   height: 100vh;
+
+   /* Box characteristics */
+   padding-left: var(--navbarSize);
+
+   /* Positioning */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.mainCard {
+   /* Background */
+   background-color: var(--navbarColor);
+
+   /* Dimensions */
+   width: 80%;
+
+   /* Box characteristics */
+   border-radius: 5px;
+}
+
+/* Profile section */
+.profileSection {
+   /* Box characteristics */
+   padding: 1.5rem;
+   border-bottom: 2px solid var(--backgroundColor);
+
+   /* Positioning */
+   display: flex;
+}
+.ppImage {
+   /* Dimensions */
+   width: 7rem;
+   height: 7rem;
+
+   /* Box characteristics */
+   border-radius: 100%;
+}
+.label {
+   /* Font */
+   font-weight: 700;
+   color: var(--secondaryColor);
+
+   /* Positioning */
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+
+   /* Box characteristics */
+   margin-bottom: 0.5rem;
+}
+.labelLeft {
+   /* Font */
+   font-weight: 700;
+   color: var(--primaryColor);
+
+   /* Positioning */
+   display: flex;
+   flex-direction: column;
+   text-align: left;
+}
+.labelLeftMargin {
+   /* Font */
+   font-weight: 700;
+   color: var(--primaryColor);
+
+   margin-left: 1rem;
+
+   /* Positioning */
+   display: flex;
+   flex-direction: column;
+   text-align: left;
+}
+.labelRight {
+   /* Font */
+   font-weight: 700;
+   color: var(--primaryColor);
+
+   /* Positioning */
+   display: flex;
+   flex-direction: column;
+   text-align: right;
+}
+.labelValue {
+   /* Font */
+   font-weight: 400;
+   color: var(--secondaryColor);
+
+   /* Box characteristics */
+   margin: 0;
+}
+.userBalance {
+   /* Box characteristics */
+   margin-left: auto;
+}
+
+/* Trade section */
+.tradeSection {
+   /* Box characteristics */
+   padding: 1.5rem;
+   border-bottom: 2px solid var(--backgroundColor);
+
+   /* Positioning */
+   display: flex;
+}
+.tradeForm {
+   /* Box characteristics */
+   margin: auto;
+
+   /* Positioning */
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+}
+.inputNumber {
+   /* Background */
+   background-color: rgba(255, 255, 255, 0.15);
+
+   /* Font */
+   font-size: 1rem;
+   color: var(--secondaryColor);
+   text-align: right;
+
+   /* Dimensions */
+   height: 4vh;
+   width: 15vw;
+
+   /* Box characteristics */
+   border: none;
+   border-radius: 5px;
+   padding: 0.5rem;
+   margin-top: 0.3rem;
+   margin-bottom: 1rem;
+
+   /* Others */
+   outline: none;
+}
+.inputButton {
+   /* Background */
+   background-color: var(--primaryColor);
+
+   /* Font */
+   font-size: 1rem;
+   font-weight: 600;
+
+   /* Dimensions */
+   height: 4vh;
+   width: 6vw;
+
+   /* Box characteristics */
+   border: none;
+   border-radius: 5px;
+
+   /* Others */
+   cursor: pointer;
+   outline: none;
+}
+.tradeRate {
+   /* Font */
+   font-size: 3rem;
+   color: var(--primaryColor);
+}
+
+/* Recent section */
+.recentSection {
+   /* Box characteristics */
+   padding: 1.5rem;
+}

@@ -1,0 +1,23 @@
+.listItem {
+   /* Background */
+   background-color: rgba(255, 255, 255, 0.15);
+
+   /* Box characteristics */
+   margin: 0.5rem 0;
+   padding: 0.5rem 1rem;
+   border-radius: 5px;
+
+   /* Positioning */
+   display: flex;
+}
+.typeText,
+.createdAtText {
+   /* Font */
+   font-weight: 600;
+   color: var(--secondaryColor);
+
+   margin-right: 1rem;
+}
+.incomeText {
+   margin-left: auto;
+}

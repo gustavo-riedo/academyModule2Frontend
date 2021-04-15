@@ -1,0 +1,25 @@
+/* General structure */
+.main {
+   /* Dimensions */
+   width: 100vw;
+   height: 100vh;
+
+   /* Box characteristics */
+   padding-left: var(--navbarSize);
+
+   /* Positioning */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.mainCard {
+   /* Background */
+   background-color: var(--navbarColor);
+
+   /* Dimensions */
+   width: 80%;
+
+   /* Box characteristics */
+   border-radius: 5px;
+   padding: 1rem;
+}
