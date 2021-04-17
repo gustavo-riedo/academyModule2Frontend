@@ -10,6 +10,9 @@
    /* Positioning */
    display: flex;
 }
+/* .listItem:first-child {
+   border: 2px solid #4bb543;
+} */
 .typeText,
 .createdAtText {
    /* Font */

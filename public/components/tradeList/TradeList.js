@@ -9,8 +9,8 @@ export default class TradeList extends Component {
 
       return (
          <ul className={style.tradeList}>
-            {tradeList.reverse().map((trade, index) => (
-               <TradeItem trade={trade} index={index} />
+            {tradeList.reverse().map((trade) => (
+               <TradeItem trade={trade} />
             ))}
          </ul>
       );

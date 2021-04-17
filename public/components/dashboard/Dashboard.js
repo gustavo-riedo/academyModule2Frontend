@@ -1,35 +1,73 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Image from 'next/image';
 
+import { subscribeToRatesUpdate } from '../../connections/socketClient';
 import style from './Dashboard.module.css';
 import TradeList from '../tradeList/TradeList';
 
-const userID = 381;
+const userID = 383;
+const databaseAddress = 'http://localhost:5000/';
 
 export default class Dashboard extends Component {
-   state = {
-      username: 'No username available',
-      email: 'No email available',
-      USDbal: 'No value available',
-      GBPbal: 'No value available',
-      userHistory: [],
-   };
+   constructor() {
+      super();
+      this.state = {
+         username: 'No username available',
+         email: 'No email available',
+         USDbal: 'No value available',
+         GBPbal: 'No value available',
+         userHistory: [],
+
+         USDrate: 'Loading...',
+         GBPrate: 'Loading...',
+
+         userInput: '',
+      };
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+   }
 
    componentDidMount() {
+      this.updateUserData(userID);
+      subscribeToRatesUpdate((err, data) =>
+         this.setState({ USDrate: data.USDtoGBP, GBPrate: data.GBPtoUSD })
+      );
+   }
+
+   handleChange(event) {
+      this.setState({ userInput: event.target.value });
+      console.log(this.state.userInput);
+   }
+   handleSubmit(event, type) {
+      // event.preventDefault();
+      if (type == 'USD to GBP') {
+         this.createOperation(
+            'USD to GBP',
+            this.state.userInput,
+            this.state.USDrate
+         );
+      } else if (type == 'GBP to USD') {
+         this.createOperation(
+            'GBP to USD',
+            this.state.userInput,
+            this.state.GBPrate
+         );
+      } else if (type == 'deposit') {
+         this.depositAmount(this.state.userInput);
+      }
+
       this.updateUserData(userID);
    }
 
    updateUserData = async (id) => {
-      const rawUserdata = await axios.get('http://localhost:5000/users/' + id);
+      const rawUserdata = await axios.get(databaseAddress + 'users/' + id);
       const userData = rawUserdata.data;
 
       const rawHistory = await axios.get(
-         'http://localhost:5000/users/history/' + id
+         databaseAddress + 'users/history/' + id
       );
       const userHistory = rawHistory.data;
-
-      console.log(userHistory);
 
       this.setState({
          username: userData.username,
@@ -39,6 +77,42 @@ export default class Dashboard extends Component {
          userHistory: userHistory,
       });
    };
+
+   createOperation = async (type, income, rate) => {
+      const operationData = {
+         tradetype: type,
+         income: income,
+         rate: rate,
+         userid: userID,
+      };
+      await axios
+         .post(databaseAddress + 'operations', operationData)
+         .catch((error) => {
+            console.log(error);
+            if (error.response.data == 'Invalid value') {
+               alert('Invalid value');
+            }
+            if (error.response.data == 'Not enough balance') {
+               alert('Not enough balance');
+            }
+         });
+   };
+
+   depositAmount = async (value) => {
+      const depositData = {
+         accbalanceusd: Number(this.state.USDbal) + Number(value),
+         accbalancegbp: this.state.GBPbal,
+      };
+
+      console.log(depositData);
+
+      const res = await axios.patch(
+         databaseAddress + 'users/' + userID,
+         depositData
+      );
+      if (res == 'Invalid value') alert('Invalid value');
+   };
+
    render() {
       return (
          <main className={style.main}>
@@ -75,9 +149,14 @@ export default class Dashboard extends Component {
                   </div>
                </section>
                <section className={style.tradeSection}>
-                  <form className={style.tradeForm}>
+                  <form
+                     className={style.tradeForm}
+                     onSubmit={(e) => this.handleSubmit(e, 'USD to GBP')}
+                  >
                      <label className={style.label}>
-                        <p className={style.tradeRate}>1.23</p>
+                        <p className={style.tradeRate}>
+                           {parseFloat(this.state.USDrate).toFixed(4)}
+                        </p>
                         USD to GBP rate
                      </label>
                      <label className={style.labelLeft}>
@@ -85,33 +164,44 @@ export default class Dashboard extends Component {
                         <input
                            type="number"
                            defaultValue={0.0}
+                           onChange={this.handleChange}
                            className={style.inputNumber}
                         />
                      </label>
                      <input
-                        type="button"
+                        type="submit"
                         value="Buy GBP"
                         className={style.inputButton}
                      />
                   </form>
-                  <form className={style.tradeForm}>
+                  <form
+                     className={style.tradeForm}
+                     onSubmit={(e) => this.handleSubmit(e, 'deposit')}
+                  >
                      <label className={style.labelLeft}>
                         Deposit
                         <input
                            type="number"
                            defaultValue={0.0}
+                           onChange={this.handleChange}
                            className={style.inputNumber}
                         />
                      </label>
                      <input
-                        type="button"
+                        type="submit"
+                        onChange={this.handleChange}
                         value="Deposit"
                         className={style.inputButton}
                      />
                   </form>
-                  <form className={style.tradeForm}>
+                  <form
+                     className={style.tradeForm}
+                     onSubmit={(e) => this.handleSubmit(e, 'GBP to USD')}
+                  >
                      <label className={style.label}>
-                        <p className={style.tradeRate}>1.23</p>
+                        <p className={style.tradeRate}>
+                           {parseFloat(this.state.GBPrate).toFixed(4)}
+                        </p>
                         GBP to USD rate
                      </label>
                      <label className={style.labelLeft}>
@@ -119,11 +209,12 @@ export default class Dashboard extends Component {
                         <input
                            type="number"
                            defaultValue={0.0}
+                           onChange={this.handleChange}
                            className={style.inputNumber}
                         />
                      </label>
                      <input
-                        type="button"
+                        type="submit"
                         value="Buy USD"
                         className={style.inputButton}
                      />
