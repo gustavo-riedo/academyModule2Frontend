@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { i18n } from '../../../src/translate/i18n';
 
 import style from './History.module.css';
 import TradeList from '../tradeList/TradeList';
@@ -30,7 +31,7 @@ export default class History extends Component {
       return (
          <main className={style.main}>
             <div className={style.mainCard}>
-               <h1>History</h1>
+               <h1>{i18n.t('titles.history')}</h1>
                <TradeList tradeList={this.state.userHistory.slice(-15)} />
             </div>
          </main>

@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Image from 'next/image';
+import { i18n } from '../../../src/translate/i18n';
 
 import { subscribeToRatesUpdate } from '../../connections/socketClient';
 import style from './Dashboard.module.css';
@@ -13,14 +14,14 @@ export default class Dashboard extends Component {
    constructor() {
       super();
       this.state = {
-         username: 'No username available',
-         email: 'No email available',
-         USDbal: 'No value available',
-         GBPbal: 'No value available',
+         username: i18n.t('errors.noUsername'),
+         email: i18n.t('errors.noEmail'),
+         USDbal: i18n.t('errors.noValue'),
+         GBPbal: i18n.t('errors.noValue'),
          userHistory: [],
 
-         USDrate: 'Loading...',
-         GBPrate: 'Loading...',
+         USDrate: i18n.t('messages.loading'),
+         GBPrate: i18n.t('messages.loading'),
 
          userInput: '',
       };
@@ -90,10 +91,10 @@ export default class Dashboard extends Component {
          .catch((error) => {
             console.log(error);
             if (error.response.data == 'Invalid value') {
-               alert('Invalid value');
+               alert(i18n.t('errors.invalidValue'));
             }
             if (error.response.data == 'Not enough balance') {
-               alert('Not enough balance');
+               alert(i18n.t('errors.notEnoughMoney'));
             }
          });
    };
@@ -110,7 +111,7 @@ export default class Dashboard extends Component {
          databaseAddress + 'users/' + userID,
          depositData
       );
-      if (res == 'Invalid value') alert('Invalid value');
+      if (res == 'Invalid value') alert(i18n.t('errors.invalidValue'));
    };
 
    render() {
@@ -127,7 +128,7 @@ export default class Dashboard extends Component {
                   />
                   <div className={style.userData}>
                      <label className={style.labelLeftMargin}>
-                        Name
+                        {i18n.t('titles.name')}
                         <p className={style.labelValue}>
                            {this.state.username}
                         </p>
@@ -157,10 +158,10 @@ export default class Dashboard extends Component {
                         <p className={style.tradeRate}>
                            {parseFloat(this.state.USDrate).toFixed(4)}
                         </p>
-                        USD to GBP rate
+                        {i18n.t('titles.USDtoGBP')}
                      </label>
                      <label className={style.labelLeft}>
-                        Value
+                        {i18n.t('titles.value')}
                         <input
                            type="number"
                            defaultValue={0.0}
@@ -170,7 +171,7 @@ export default class Dashboard extends Component {
                      </label>
                      <input
                         type="submit"
-                        value="Buy GBP"
+                        value={i18n.t('buttons.buyGBP')}
                         className={style.inputButton}
                      />
                   </form>
@@ -179,7 +180,7 @@ export default class Dashboard extends Component {
                      onSubmit={(e) => this.handleSubmit(e, 'deposit')}
                   >
                      <label className={style.labelLeft}>
-                        Deposit
+                        {i18n.t('titles.deposit')}
                         <input
                            type="number"
                            defaultValue={0.0}
@@ -190,7 +191,7 @@ export default class Dashboard extends Component {
                      <input
                         type="submit"
                         onChange={this.handleChange}
-                        value="Deposit"
+                        value={i18n.t('titles.deposit')}
                         className={style.inputButton}
                      />
                   </form>
@@ -202,10 +203,10 @@ export default class Dashboard extends Component {
                         <p className={style.tradeRate}>
                            {parseFloat(this.state.GBPrate).toFixed(4)}
                         </p>
-                        GBP to USD rate
+                        {i18n.t('titles.GBPtoUSD')}
                      </label>
                      <label className={style.labelLeft}>
-                        Value
+                        {i18n.t('titles.value')}
                         <input
                            type="number"
                            defaultValue={0.0}
@@ -215,7 +216,7 @@ export default class Dashboard extends Component {
                      </label>
                      <input
                         type="submit"
-                        value="Buy USD"
+                        value={i18n.t('buttons.buyUSD')}
                         className={style.inputButton}
                      />
                   </form>

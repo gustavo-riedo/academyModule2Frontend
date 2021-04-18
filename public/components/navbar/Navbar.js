@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { i18n } from '../../../src/translate/i18n';
 
 import style from './Navbar.module.css';
 
@@ -18,7 +19,7 @@ export default class Navbar extends Component {
                            width={100}
                            alt="Dashboard link"
                         />
-                        Dashboard
+                        {i18n.t('titles.dashboard')}
                      </a>
                   </Link>
                </li>
@@ -31,20 +32,7 @@ export default class Navbar extends Component {
                            width={100}
                            alt="History link"
                         />
-                        History
-                     </a>
-                  </Link>
-               </li>
-               <li className={style.navbarItem}>
-                  <Link href="/">
-                     <a className={style.navbarLink}>
-                        <Image
-                           src="/images/theme.svg"
-                           height={40}
-                           width={100}
-                           alt="Switch theme"
-                        />
-                        Switch theme
+                        {i18n.t('titles.history')}
                      </a>
                   </Link>
                </li>
@@ -57,7 +45,7 @@ export default class Navbar extends Component {
                            width={100}
                            alt="Logout link"
                         />
-                        Logout
+                        {i18n.t('titles.logout')}
                      </a>
                   </Link>
                </li>

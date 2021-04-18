@@ -34,7 +34,7 @@
    /* Box characteristics */
    margin: 2vh 0;
 }
-.navbarItem:nth-last-child(2) {
+.navbarItem:nth-last-child(1) {
    /* Box characteristics */
    margin-top: auto;
 }
