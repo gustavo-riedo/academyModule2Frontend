@@ -151,11 +151,11 @@
 
    /* Dimensions */
    height: 4vh;
-   width: 6vw;
 
    /* Box characteristics */
    border: none;
    border-radius: 5px;
+   padding: 0 1rem;
 
    /* Others */
    cursor: pointer;
