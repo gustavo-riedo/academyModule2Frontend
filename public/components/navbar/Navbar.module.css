@@ -34,7 +34,7 @@
    /* Box characteristics */
    margin: 2vh 0;
 }
-.navbarItem:nth-last-child(1) {
+.navbarItem:nth-last-child(2) {
    /* Box characteristics */
    margin-top: auto;
 }
@@ -45,6 +45,7 @@
 .navbarLink {
    /* Font */
    text-decoration: none;
+   text-align: center;
 
    /* Dimensions */
    width: 100%;
