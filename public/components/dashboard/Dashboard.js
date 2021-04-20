@@ -7,7 +7,7 @@ import { subscribeToRatesUpdate } from '../../connections/socketClient';
 import style from './Dashboard.module.css';
 import TradeList from '../tradeList/TradeList';
 
-const userID = 383;
+const userID = 384;
 const databaseAddress = 'http://localhost:5000/';
 
 export default class Dashboard extends Component {
