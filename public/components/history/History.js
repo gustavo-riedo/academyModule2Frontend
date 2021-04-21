@@ -18,7 +18,7 @@ export default class History extends Component {
 
    updateUserHistory = async (id) => {
       const rawHistory = await axios.get(
-         'http://localhost:5000/users/history/' + id
+         'http://localhost:5000/users/history/' + this.state.userID
       );
       const userHistory = rawHistory.data;
 
