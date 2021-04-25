@@ -31,9 +31,13 @@ export default class Dashboard extends Component {
 
    componentDidMount() {
       this.updateUserData(userID);
-      subscribeToRatesUpdate((err, data) =>
-         this.setState({ USDrate: data.USDtoGBP, GBPrate: data.GBPtoUSD })
-      );
+      subscribeToRatesUpdate((err, data) => {
+         this.setState({ USDrate: data.USDtoGBP, GBPrate: data.GBPtoUSD });
+         if (typeof window !== 'undefined') {
+            localStorage.setItem('USDrate', data.USDtoGBP);
+            localStorage.setItem('GBPrate', data.GBPtoUSD);
+         }
+      });
    }
 
    handleChange(event) {
@@ -41,7 +45,8 @@ export default class Dashboard extends Component {
       console.log(this.state.userInput);
    }
    handleSubmit(event, type) {
-      // event.preventDefault();
+      event.preventDefault();
+      this.updateUserData(userID);
       if (type == 'USD to GBP') {
          this.createOperation(
             'USD to GBP',
@@ -60,6 +65,15 @@ export default class Dashboard extends Component {
 
       this.updateUserData(userID);
    }
+
+   getCache = async () => {
+      if (typeof window !== 'undefined') {
+         this.setState({
+            USDrate: localStorage.getItem('USDrate'),
+            GBPrate: localStorage.getItem('GBPrate'),
+         });
+      }
+   };
 
    updateUserData = async (id) => {
       const rawUserdata = await axios.get(databaseAddress + 'users/' + id);
