@@ -1,13 +1,15 @@
+// External imports
 import axios from 'axios';
 import React, { Component } from 'react';
 import Image from 'next/image';
 import { i18n } from '../../../src/translate/i18n';
 
+// Internal imports
 import { subscribeToRatesUpdate } from '../../connections/socketClient';
 import style from './Dashboard.module.css';
 import TradeList from '../tradeList/TradeList';
 
-const userID = 384;
+const userID = 384; // PLACEHOLDER
 const databaseAddress = 'http://localhost:5000/';
 
 export default class Dashboard extends Component {
@@ -42,11 +44,11 @@ export default class Dashboard extends Component {
 
    handleChange(event) {
       this.setState({ userInput: event.target.value });
+      this.updateUserData(userID);
       console.log(this.state.userInput);
    }
    handleSubmit(event, type) {
       event.preventDefault();
-      this.updateUserData(userID);
       if (type == 'USD to GBP') {
          this.createOperation(
             'USD to GBP',
@@ -62,7 +64,6 @@ export default class Dashboard extends Component {
       } else if (type == 'deposit') {
          this.depositAmount(this.state.userInput);
       }
-
       this.updateUserData(userID);
    }
 
@@ -129,6 +130,7 @@ export default class Dashboard extends Component {
    };
 
    render() {
+      this.updateUserData(userID);
       return (
          <main className={style.main}>
             <div className={style.mainCard}>
